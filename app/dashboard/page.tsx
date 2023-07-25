@@ -3,21 +3,26 @@ import { Modal } from "@/components/Modal";
 import React from "react";
 
 async function getData() {
-  const userEmail = {
-    user_email: "kavikumarceo@gmail.com",
-  }; // Replace this with the actual user email
+  try {
+    const userEmail = {
+      user_email: "kavikumarceo@gmail.com",
+    }; // Replace this with the actual user email
 
-  const response = await fetch(`${process.env.LOCAL_URI}/api/getapps`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // Pass the user email as part of the request body
-    body: JSON.stringify(userEmail),
-    cache: "no-store",
-  });
+    const response = await fetch(`${process.env.LOCAL_URI}/api/getapps`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Pass the user email as part of the request body
+      body: JSON.stringify(userEmail),
+      cache: "no-store",
+    });
 
-  return response.json();
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return []; // Return an empty array or handle the error accordingly
+  }
 }
 
 async function page() {
