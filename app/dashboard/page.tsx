@@ -38,6 +38,7 @@ async function page() {
       <div className="flex flex-wrap gap-4">
         {data.map((app: any) => (
           <Card
+            key={app.app_name}
             apikey={app.apikey}
             app_description={app.app_description}
             app_name={app.app_name}
