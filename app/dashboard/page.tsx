@@ -1,32 +1,16 @@
-import Card from "@/components/Card";
 import { Modal } from "@/components/Modal";
+import Render from "@/components/Render";
+import { getData } from "@/lib/utils";
+import { getServerSession } from "next-auth";
 import React from "react";
 
-async function getData() {
-  try {
-    const userEmail = {
-      user_email: "kavikumarceo@gmail.com",
-    }; // Replace this with the actual user email
-
-    const response = await fetch(`/api/getapps`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      // Pass the user email as part of the request body
-      body: JSON.stringify(userEmail),
-      cache: "no-store",
-    });
-
-    return response.json();
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return []; // Return an empty array or handle the error accordingly
-  }
-}
-
 async function page() {
-  const data = await getData();
+  // User Session from next-auth
+  const session = await getServerSession();
+
+  // Fetching data from database
+  const data = await getData(session?.user?.email as string);
+
   return (
     <div className="flex flex-col gap-6 p-5 max-w-7xl sm:mt-7 mx-auto">
       <div className="border-b pb-3">
@@ -38,17 +22,10 @@ async function page() {
       <div className="">
         <Modal />
       </div>
-      <h1 className="font-bold text-2xl pb-2 border-b">Your Applications</h1>
-      <div className="flex flex-wrap gap-4">
-        {data.map((app: any) => (
-          <Card
-            key={app.app_name}
-            apikey={app.apikey}
-            app_description={app.app_description}
-            app_name={app.app_name}
-          />
-        ))}
+      <div className="flex items-center justify-between pb-2 border-b">
+        <h1 className="font-bold flex-1 text-2xl">Your Applications</h1>
       </div>
+      <Render data={data} />
     </div>
   );
 }

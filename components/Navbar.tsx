@@ -1,25 +1,21 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { signIn, useSession } from "next-auth/react";
 import { DropdownMenuComp } from "./DropDownMenu";
 import MobMenu from "./MobMenu";
-import { useRouter } from "next/navigation";
 
 function Navbar() {
   const { data: session } = useSession();
-  const router = useRouter();
   return (
     <nav className="sm:px-14 px-5 border-b py-3 flex items-center justify-between">
       <Link href="/" className="font-bold text-2xl">
         ProRegistra
       </Link>
-      {/* Mobile Menu Button */}
-      <MobMenu />
       {/* Mobile Menu */}
-
+      <MobMenu />
       <div className="hidden sm:flex items-center font-medium gap-10">
         <Link
           className="hover:text-gray-950 transition-all duration-200 text-gray-700"

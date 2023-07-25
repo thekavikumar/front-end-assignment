@@ -1,5 +1,5 @@
 import clientPromise from "@/lib/mongodb";
-import { NextApiRequest, NextApiResponse } from "next";
+import {  NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 const handler = async (req: Request, res: NextApiResponse) => {

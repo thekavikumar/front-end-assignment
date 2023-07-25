@@ -34,12 +34,13 @@ import { useSession } from "next-auth/react";
 import { useToast } from "./ui/use-toast";
 import { ToastAction } from "./ui/toast";
 
+// Form Schema for validation
 const FormSchema = z.object({
   app_name: z
     .string()
     .min(3, "App Name is Too short")
     .max(50, "App Name is Too long"),
-  app_description: z.string().max(100, "Description is Too long"),
+  app_description: z.string().max(500, "Description is Too long"),
   app_providers: z.string({
     required_error: "Please select an provider to register.",
   }),
@@ -52,21 +53,25 @@ export function Modal() {
     resolver: zodResolver(FormSchema),
   });
 
+  // User Session from next-auth
   const { data: session } = useSession();
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    // ..
+    // Logging the form data for debugging
     console.log(data);
+
     const final_data = {
       app_name: data.app_name,
       app_description: data.app_description,
       app_providers: data.app_providers,
       user_email: session?.user?.email,
     };
+
     try {
       if (!session) {
         console.log("Not logged in");
       }
+      // Send a POST request to API route
       const response = await fetch("/api/create", {
         method: "POST",
         headers: {

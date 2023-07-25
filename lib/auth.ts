@@ -3,6 +3,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import GoogleProvider from "next-auth/providers/google";
 import clientPromise from "./mongodb";
 
+// https://next-auth.js.org/configuration/options
 export const authConfig: NextAuthOptions = {
   adapter: MongoDBAdapter(clientPromise),
   providers: [
@@ -14,12 +15,16 @@ export const authConfig: NextAuthOptions = {
   jwt: {},
   session: { strategy: "jwt" },
   callbacks: {
-    async jwt({ token, account }) {
+    async jwt({ token, account, user }) {
       // Persist the OAuth access_token and or the user id to the token right after signin
       if (account) {
         token.accessToken = account.access_token;
       }
       return token;
     },
+  },
+  pages: {
+    signIn: "/",
+    signOut: "/",
   },
 };

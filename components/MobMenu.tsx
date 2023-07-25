@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,8 +14,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function MobMenu() {
+  // User Session from next-auth
   const { data: session } = useSession();
   const router = useRouter();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

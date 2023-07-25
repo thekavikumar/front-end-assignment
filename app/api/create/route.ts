@@ -3,6 +3,7 @@ import { NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 
 const handler = async (req: Request, res: NextApiResponse) => {
+  // API KEY GENERATE FUNCTION
   function generateRandomApiKey(length: number): string {
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
@@ -20,8 +21,9 @@ const handler = async (req: Request, res: NextApiResponse) => {
     const client = await clientPromise;
     const db = client.db("test");
     const data = await req.json();
+    // Generate a random API key
     const apiKey = generateRandomApiKey(32);
-    console.log(data);
+    console.log(data); // logging for debugging purposes
     const obj = {
       app_name: data.app_name,
       app_description: data.app_description,
