@@ -12,15 +12,18 @@ export async function getData(email: any) {
     user_email: email,
   }; // Replace this with the actual user email
 
-  const response = await fetch(`/api/getapps`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // Pass the user email as part of the request body
-    body: JSON.stringify(userEmail),
-    cache: "no-store",
-  });
+  const response = await fetch(
+    `https://full-stack-assignment-dun.vercel.app/api/getapps`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // Pass the user email as part of the request body
+      body: JSON.stringify(userEmail),
+      cache: "no-store",
+    }
+  );
 
   return response.json();
 }
