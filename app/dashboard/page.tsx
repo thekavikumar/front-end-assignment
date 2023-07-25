@@ -8,7 +8,7 @@ async function getData() {
       user_email: "kavikumarceo@gmail.com",
     }; // Replace this with the actual user email
 
-    const response = await fetch(`${process.env.LOCAL_URI}/api/getapps`, {
+    const response = await fetch(`/api/getapps`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
