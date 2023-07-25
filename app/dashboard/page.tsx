@@ -1,6 +1,5 @@
 import Card from "@/components/Card";
 import { Modal } from "@/components/Modal";
-import { getServerSession } from "next-auth";
 import React from "react";
 
 async function getData() {
@@ -8,7 +7,7 @@ async function getData() {
     user_email: "kavikumarceo@gmail.com",
   }; // Replace this with the actual user email
 
-  const response = await fetch(`${process.env.NEXTAUTH_URL}/api/getApps`, {
+  const response = await fetch(`${process.env.LOCAL_URI}/api/getapps`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
